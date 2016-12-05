@@ -155,3 +155,15 @@ def update
 	redirect_to root_path
 end
 ```
+
+### Destroy Form Without Ajax
+
+Back in the tasks controller create the destroy action with the following:
+
+```ruby
+def destroy
+  @task = Task.find(params[:id])
+  @task.destroy
+  redirect_to root_path
+end
+```
