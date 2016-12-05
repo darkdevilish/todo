@@ -75,8 +75,8 @@ Go to index view, create a form_for @task with a text field and a button tag.
 Now that we can create tasks let's list them. Get to the index action of your tasks controller and make an instance variable called todo to grab all the tasks that are not completed order by id desc and another one called completed_tasks to grab the ones that are completed.
 
 ```ruby
-@todo = Task.where(complete: false).order(id: :desc)
-@completed_tasks = Task.where(complete: true).order(id: :desc)
+@todo = Task.where(completed: false).order(id: :desc)
+@completed_tasks = Task.where(completed: true).order(id: :desc)
 ```
 
 Before going forward let's create some partials in our tasks views for the new form, destroy, update and to display an individual task. Go to your tasks views folder and create 4 new files with the following names.
@@ -124,4 +124,18 @@ For the task partial make a list to display each individual task render the part
 			<%= render "update_form", task: task %>
 		</div>
 </li>
+```
+
+To list the tasks in the index view loop through the instance variables that we created in the respective sections and render the task partial passing the variable.
+
+```ruby
+# Uncompleted tasks
+<% @todo.each do |task| %>
+	<%= render "task", task: task %>
+<% end %>
+
+# completed tasks
+<% @completed_tasks.each do |task| %>
+	<%= render "task", task: task %>
+<% end %>
 ```
