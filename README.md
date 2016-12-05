@@ -23,3 +23,12 @@ root 'tasks#index'
 
 resources :tasks, except:[:new, :show, :edit]
 ```
+
+### New Task Form Without Ajax
+
+Now that we have a template to work with let's create a model with a string title and a boolean completed for tasks and migrate the table.
+
+```console
+rails g model task title:string completed:boolean
+rails db:migrate
+```
