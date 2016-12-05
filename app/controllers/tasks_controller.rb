@@ -12,6 +12,16 @@ class TasksController < ApplicationController
 		redirect_to root_path
 	end
 
+	def update
+		@task = Task.find(params[:id])
+		if @task.completed
+		  @task.update(completed: false)
+		else
+			@task.update(completed: true)
+		end
+		redirect_to root_path
+	end
+
 private
 	def task_param
 		params.require(:task).permit(:title)

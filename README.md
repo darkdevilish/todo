@@ -39,7 +39,7 @@ Go to the the tasks controller and in the index action make an instance variable
 @task = Task.new
 ```
 
-Create task_param private function to whitelist the title param.
+Create task_param private method to whitelist the title param.
 
 ```ruby
 private
@@ -138,4 +138,20 @@ To list the tasks in the index view loop through the instance variables that we 
 <% @completed_tasks.each do |task| %>
 	<%= render "task", task: task %>
 <% end %>
+```
+
+### Update Form Without Ajax
+
+Now that we can list all the tasks let's make the update form work. In the tasks controller create an update action with the following:
+
+```ruby
+def update
+	@task = Task.find(params[:id])
+	if @task.completed
+	  @task.update(completed: false)
+	else
+		@task.update(completed: true)
+	end
+	redirect_to root_path
+end
 ```
