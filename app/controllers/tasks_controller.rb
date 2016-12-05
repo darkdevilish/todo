@@ -23,7 +23,11 @@ class TasksController < ApplicationController
 		else
 			@task.update(completed: true)
 		end
-		redirect_to root_path
+
+		respond_to do |format|
+			format.html { redirect_to root_path }
+			format.jss
+		end
 	end
 
 	def destroy

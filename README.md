@@ -193,3 +193,11 @@ Use some jquery to grab the item id in your new form, that's the text field and 
 $("#item").val("");
 $('#todo').prepend( $("<%= j render 'task', task: @task %>").hide().fadeIn(1100) );
 ```
+
+### Update Form With Ajax
+
+To make the update form work with ajax is the same process that we already did with the new form, what changes here is the js.erb file. First of all we will need to grab the id of the item we're deleting from the tasks list. Right now we're not giving them one so go ahead and go to the task partial, make the list to the task.id.
+
+```html
+<li id="<%= task.id %>">
+```
