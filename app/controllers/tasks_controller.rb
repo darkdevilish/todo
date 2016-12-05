@@ -9,7 +9,11 @@ class TasksController < ApplicationController
 		@task = Task.create(task_param)
 		@task.completed = false
 		@task.save
-		redirect_to root_path
+
+		respond_to do |format|
+      format.html { redirect_to root_path}
+      format.js
+    end
 	end
 
 	def update

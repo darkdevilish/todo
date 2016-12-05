@@ -167,3 +167,29 @@ def destroy
   redirect_to root_path
 end
 ```
+
+### New Form With Ajax
+
+Now everything is cool and dandy but there's a page refresh everytime an action happens, the solution is to use ajax and rails comes equipped with that functionality built in. Go to the new form partial and in the form after tasks_path make the remote option equal to true.
+
+```ruby
+<%= form_for @task, url: tasks_path, remote: true do |f| %>
+```
+
+Now in the tasks controller in your create action you need create a respond_to block that allows the controller to serve the ajax request.
+
+```ruby
+respond_to do |format|
+  format.html { redirect_to root_path}
+  format.js
+end
+```
+
+To respond with javascript you need to create a .js.erb file with the same name of the action in this case will be create.js.erb in your tasks folder your app views, this will allow you to use ruby and javascript in the same file.
+
+Use some jquery to grab the item id in your new form, that's the text field and make the value equal to an empty string to reset the input. Prepend the task that you just created to the todo id, that's the unorder list where you list the uncompleted tasks. You accomplished that using embedded ruby to render the task partial with the instance variable from your create action in your controller and use the hide and fadeIn jquery functions to smoove user interface.
+
+```javascript
+$("#item").val("");
+$('#todo').prepend( $("<%= j render 'task', task: @task %>").hide().fadeIn(1100) );
+```
