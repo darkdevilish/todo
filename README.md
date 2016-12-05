@@ -32,3 +32,40 @@ Now that we have a template to work with let's create a model with a string titl
 rails g model task title:string completed:boolean
 rails db:migrate
 ```
+
+Go to the the tasks controller and in the index action make an instance variable for new task.
+
+```ruby
+@task = Task.new
+```
+
+Create task_param private function to whitelist the title param.
+
+```ruby
+private
+	def task_param
+		params.require(:task).permit(:title)
+	end
+```
+
+Make a create action for tasks controller with an instance variable to create the new task in database, make the completed boolean false, save and redirect to root_path.
+
+```ruby
+def create
+		@task = Task.create(task_param)
+		@task.completed = false
+		@task.save
+		redirect_to root_path
+end
+```
+
+Go to index view, create a form_for @task with a text field and a button tag.
+
+```ruby
+<%= form_for @task, url: tasks_path do |f| %>
+		<%= f.text_field :title, :id =>"item", :placeholder =>"Enter an activity.." %>
+		<%= button_tag( :id =>"add") do %>
+			<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"viewBox="0 0 16 16" style="enable-background:new 0 0 16 16;" xml:space="preserve"><g><path class="fill" d="M16,8c0,0.5-0.5,1-1,1H9v6c0,0.5-0.5,1-1,1s-1-0.5-1-1V9H1C0.5,9,0,8.5,0,8s0.5-1,1-1h6V1c0-0.5,0.5-1,1-1s1,0.5,1,1v6h6C15.5,7,16,7.5,16,8z"/></g></svg>
+		<% end %>
+	<% end %>
+```
