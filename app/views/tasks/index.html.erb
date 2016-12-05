@@ -1,19 +1,19 @@
 <header>
-	<%= render "new_form" %>
+  <%= render "new_form" %>
 </header>
 
 <div class="container">
 	<!-- Uncompleted tasks -->
-	<ul class="todo" id="todo">
-		<% @todo.each do |task| %>
-			<%= render "task", task: task %>
-		<% end %>
-	</ul>
+  <ul class="todo" id="todo">
+    <% @todo.each do |task| %>
+      <%= render "task", task: task %>
+    <% end %>
+  </ul>
 
 	<!-- Completed tasks -->
-	<ul class="todo" id="completed">
-		<% @completed_tasks.each do |task| %>
-			<%= render "task", task: task %>
-		<% end %>
-	</ul>
+  <ul class="todo" id="completed">
+    <% @completed_tasks.each do |task| %>
+      <%= render "task", task: task %>
+    <% end %>
+  </ul>
 </div>

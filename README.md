@@ -4,6 +4,17 @@ This simple todo list app is made to demonstrate how to use the ruby on rails bu
 
 Once you unzip the repo and create a new rails app, go to the resources folder where you will find the css folder. From there copy the reset.css file to your stylesheets folder located in the app/assets folder of your new rails app.
 
+## Steps
+
+1. [UI](#ui)
+2. [New Task Form Without Ajax](#new-task-form-without-ajax)
+3. [List All Tasks](#list-all-tasks)
+4. [Update Form Without Ajax](#update-form-without-ajax)
+5. [Destroy Form Without Ajax](#destroy-form-without-ajax)
+6. [New Form With Ajax](#new-form-with-ajax)
+7. [Update Form With Ajax](#update-form-with-ajax)
+8. [Destroy Form with Ajax](#destroy-form-with-ajax)
+
 ### UI
 
 Go to the command line and generate a tasks controller with an index action.
@@ -43,19 +54,19 @@ Create task_param private method to whitelist the title param.
 
 ```ruby
 private
-	def task_param
-		params.require(:task).permit(:title)
-	end
+  def task_param
+    params.require(:task).permit(:title)
+  end
 ```
 
 Make a create action for tasks controller with an instance variable to create the new task in database, make the completed boolean false, save and redirect to root_path.
 
 ```ruby
 def create
-		@task = Task.create(task_param)
-		@task.completed = false
-		@task.save
-		redirect_to root_path
+  @task = Task.create(task_param)
+  @task.completed = false
+  @task.save
+  redirect_to root_path
 end
 ```
 
@@ -63,11 +74,11 @@ Go to index view, create a form_for @task with a text field and a button tag.
 
 ```ruby
 <%= form_for @task, url: tasks_path do |f| %>
-		<%= f.text_field :title, :id =>"item", :placeholder =>"Enter an activity.." %>
-		<%= button_tag( :id =>"add") do %>
-			<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"viewBox="0 0 16 16" style="enable-background:new 0 0 16 16;" xml:space="preserve"><g><path class="fill" d="M16,8c0,0.5-0.5,1-1,1H9v6c0,0.5-0.5,1-1,1s-1-0.5-1-1V9H1C0.5,9,0,8.5,0,8s0.5-1,1-1h6V1c0-0.5,0.5-1,1-1s1,0.5,1,1v6h6C15.5,7,16,7.5,16,8z"/></g></svg>
-		<% end %>
-	<% end %>
+  <%= f.text_field :title, :id =>"item", :placeholder =>"Enter an activity.." %>
+  <%= button_tag( :id =>"add") do %>
+    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"viewBox="0 0 16 16" style="enable-background:new 0 0 16 16;" xml:space="preserve"><g><path class="fill" d="M16,8c0,0.5-0.5,1-1,1H9v6c0,0.5-0.5,1-1,1s-1-0.5-1-1V9H1C0.5,9,0,8.5,0,8s0.5-1,1-1h6V1c0-0.5,0.5-1,1-1s1,0.5,1,1v6h6C15.5,7,16,7.5,16,8z"/></g></svg>
+  <% end %>
+<% end %>
 ```
 
 ### List All Tasks
@@ -98,9 +109,9 @@ Create a form tag in the update form partial with the put method and a button ta
 
 ```ruby
 <%= form_tag({:action => "update", :id => task.id}, method: "put") do %>
-	<%= button_tag(:class => "complete") do %>
-  		<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 22 22" style="enable-background:new 0 0 22 22;" xml:space="preserve"><rect y="0" class="noFill" width="22" height="22"/><g><path class="fill" d="M9.7,14.4L9.7,14.4c-0.2,0-0.4-0.1-0.5-0.2l-2.7-2.7c-0.3-0.3-0.3-0.8,0-1.1s0.8-0.3,1.1,0l2.1,2.1l4.8-4.8c0.3-0.3,0.8-0.3,1.1,0s0.3,0.8,0,1.1l-5.3,5.3C10.1,14.3,9.9,14.4,9.7,14.4z"/></g></svg>
-	<% end %>
+  <%= button_tag(:class => "complete") do %>
+    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 22 22" style="enable-background:new 0 0 22 22;" xml:space="preserve"><rect y="0" class="noFill" width="22" height="22"/><g><path class="fill" d="M9.7,14.4L9.7,14.4c-0.2,0-0.4-0.1-0.5-0.2l-2.7-2.7c-0.3-0.3-0.3-0.8,0-1.1s0.8-0.3,1.1,0l2.1,2.1l4.8-4.8c0.3-0.3,0.8-0.3,1.1,0s0.3,0.8,0,1.1l-5.3,5.3C10.1,14.3,9.9,14.4,9.7,14.4z"/></g></svg>
+  <% end %>
 <% end %>
 ```
 
@@ -108,9 +119,9 @@ Do the same for the destroy form partial but made the method delete and add a da
 
 ```ruby
 <%= form_tag({:action => "destroy", :id => task.id}, method: "delete") do %>
-	<%= button_tag( :class => "remove", :data => { confirm: "Are you sure?" }) do %>
-  	<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 22 22" style="enable-background:new 0 0 22 22;" xml:space="preserve"><rect class="noFill" width="22" height="22"/><g><g><path class="fill" d="M16.1,3.6h-1.9V3.3c0-1.3-1-2.3-2.3-2.3h-1.7C8.9,1,7.8,2,7.8,3.3v0.2H5.9c-1.3,0-2.3,1-2.3,2.3v1.3c0,0.5,0.4,0.9,0.9,1v10.5c0,1.3,1,2.3,2.3,2.3h8.5c1.3,0,2.3-1,2.3-2.3V8.2c0.5-0.1,0.9-0.5,0.9-1V5.9C18.4,4.6,17.4,3.6,16.1,3.6z M9.1,3.3c0-0.6,0.5-1.1,1.1-1.1h1.7c0.6,0,1.1,0.5,1.1,1.1v0.2H9.1V3.3z M16.3,18.7c0,0.6-0.5,1.1-1.1,1.1H6.7c-0.6,0-1.1-0.5-1.1-1.1V8.2h10.6V18.7z M17.2,7H4.8V5.9c0-0.6,0.5-1.1,1.1-1.1h10.2c0.6,0,1.1,0.5,1.1,1.1V7z"/></g><g><g><path class="fill" d="M11,18c-0.4,0-0.6-0.3-0.6-0.6v-6.8c0-0.4,0.3-0.6,0.6-0.6s0.6,0.3,0.6,0.6v6.8C11.6,17.7,11.4,18,11,18z"/></g><g><path class="fill" d="M8,18c-0.4,0-0.6-0.3-0.6-0.6v-6.8c0-0.4,0.3-0.6,0.6-0.6c0.4,0,0.6,0.3,0.6,0.6v6.8C8.7,17.7,8.4,18,8,18z"/></g><g><path class="fill" d="M14,18c-0.4,0-0.6-0.3-0.6-0.6v-6.8c0-0.4,0.3-0.6,0.6-0.6c0.4,0,0.6,0.3,0.6,0.6v6.8C14.6,17.7,14.3,18,14,18z"/></g></g></g></svg>
-	<% end %>
+  <%= button_tag( :class => "remove", :data => { confirm: "Are you sure?" }) do %>
+    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 22 22" style="enable-background:new 0 0 22 22;" xml:space="preserve"><rect class="noFill" width="22" height="22"/><g><g><path class="fill" d="M16.1,3.6h-1.9V3.3c0-1.3-1-2.3-2.3-2.3h-1.7C8.9,1,7.8,2,7.8,3.3v0.2H5.9c-1.3,0-2.3,1-2.3,2.3v1.3c0,0.5,0.4,0.9,0.9,1v10.5c0,1.3,1,2.3,2.3,2.3h8.5c1.3,0,2.3-1,2.3-2.3V8.2c0.5-0.1,0.9-0.5,0.9-1V5.9C18.4,4.6,17.4,3.6,16.1,3.6z M9.1,3.3c0-0.6,0.5-1.1,1.1-1.1h1.7c0.6,0,1.1,0.5,1.1,1.1v0.2H9.1V3.3z M16.3,18.7c0,0.6-0.5,1.1-1.1,1.1H6.7c-0.6,0-1.1-0.5-1.1-1.1V8.2h10.6V18.7z M17.2,7H4.8V5.9c0-0.6,0.5-1.1,1.1-1.1h10.2c0.6,0,1.1,0.5,1.1,1.1V7z"/></g><g><g><path class="fill" d="M11,18c-0.4,0-0.6-0.3-0.6-0.6v-6.8c0-0.4,0.3-0.6,0.6-0.6s0.6,0.3,0.6,0.6v6.8C11.6,17.7,11.4,18,11,18z"/></g><g><path class="fill" d="M8,18c-0.4,0-0.6-0.3-0.6-0.6v-6.8c0-0.4,0.3-0.6,0.6-0.6c0.4,0,0.6,0.3,0.6,0.6v6.8C8.7,17.7,8.4,18,8,18z"/></g><g><path class="fill" d="M14,18c-0.4,0-0.6-0.3-0.6-0.6v-6.8c0-0.4,0.3-0.6,0.6-0.6c0.4,0,0.6,0.3,0.6,0.6v6.8C14.6,17.7,14.3,18,14,18z"/></g></g></g></svg>
+  <% end %>
 <% end %>
 ```
 
@@ -118,11 +129,11 @@ For the task partial make a list to display each individual task render the part
 
 ```ruby
 <li>
-	<%= task.title %>
-		<div class="buttons">
-			<%= render "destroy_form", task: task %>
-			<%= render "update_form", task: task %>
-		</div>
+  <%= task.title %>
+  <div class="buttons">
+    <%= render "destroy_form", task: task %>
+    <%= render "update_form", task: task %>
+  </div>
 </li>
 ```
 
@@ -131,12 +142,12 @@ To list the tasks in the index view loop through the instance variables that we 
 ```ruby
 # Uncompleted tasks
 <% @todo.each do |task| %>
-	<%= render "task", task: task %>
+  <%= render "task", task: task %>
 <% end %>
 
 # completed tasks
 <% @completed_tasks.each do |task| %>
-	<%= render "task", task: task %>
+  <%= render "task", task: task %>
 <% end %>
 ```
 
@@ -146,13 +157,13 @@ Now that we can list all the tasks let's make the update form work. In the tasks
 
 ```ruby
 def update
-	@task = Task.find(params[:id])
-	if @task.completed
-	  @task.update(completed: false)
-	else
-		@task.update(completed: true)
-	end
-	redirect_to root_path
+  @task = Task.find(params[:id])
+  if @task.completed
+    @task.update(completed: false)
+  else
+    @task.update(completed: true)
+  end
+  redirect_to root_path
 end
 ```
 
@@ -208,8 +219,18 @@ Use embedded ruby to grab the id of the instance variable in your update action 
 $("#<%= @task.id %>").remove();
 
 <% if @task.completed %>
-		$("#completed").prepend( $("<%= j render 'task', task: @task %>").hide().fadeIn(1100) );
+    $("#completed").prepend( $("<%= j render 'task', task: @task %>").hide().fadeIn(1100) );
 <% else %>
-		$("#todo").prepend( $("<%= j render 'task', task: @task %>").hide().fadeIn(1100) );
+    $("#todo").prepend( $("<%= j render 'task', task: @task %>").hide().fadeIn(1100) );
 <% end %>
+```
+
+### Destroy Form With Ajax
+
+Everything is the same except that this time in the js.erb file we are only finding the id of the item with jquery and removing it.
+
+```javascript
+$("#<%= @task.id %>").fadeOut(1000, function() {
+  $(this).remove();
+});
 ```
