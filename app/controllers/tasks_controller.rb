@@ -1,6 +1,8 @@
 class TasksController < ApplicationController
   def index
   	@task = Task.new
+  	@todo = Task.where(complete: false).order(id: :desc)
+  	@completed_tasks = Task.where(complete: true).order(id: :desc)
   end
 
   def create

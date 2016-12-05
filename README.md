@@ -69,3 +69,27 @@ Go to index view, create a form_for @task with a text field and a button tag.
 		<% end %>
 	<% end %>
 ```
+
+### List All Tasks
+
+Now that we can create tasks let's list them. Get to the index action of your tasks controller and make an instance variable called todo to grab all the tasks that are not completed order by id desc and another one called completed_tasks to grab the ones that are completed.
+
+```ruby
+@todo = Task.where(complete: false).order(id: :desc)
+@completed_tasks = Task.where(complete: true).order(id: :desc)
+```
+
+Before going forward let's create some partials in our tasks views for the new form, destroy, update and to display an individual task. Go to your tasks views folder and create 4 new files with the following names.
+
+```console
+_new_form.html.erb
+_task.html.erb
+_update_form.html.erb
+_destroy_form.html.erb
+```
+
+Grab the new form from the index view and place it in the new_form partials and render the partial in the index view.
+
+```ruby
+<%= render "new_form" %>
+```
