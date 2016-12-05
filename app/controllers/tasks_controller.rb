@@ -26,7 +26,7 @@ class TasksController < ApplicationController
 
 		respond_to do |format|
 			format.html { redirect_to root_path }
-			format.jss
+			format.js
 		end
 	end
 

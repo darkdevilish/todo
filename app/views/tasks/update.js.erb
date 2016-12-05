@@ -1,0 +1,7 @@
+$("#<%= @task.id %>").remove();
+
+<% if @task.completed %>
+		$("#completed").prepend( $("<%= j render 'task', task: @task %>").hide().fadeIn(1100) );
+<% else %>
+		$("#todo").prepend( $("<%= j render 'task', task: @task %>").hide().fadeIn(1100) );
+<% end %>

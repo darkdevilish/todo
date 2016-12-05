@@ -201,3 +201,15 @@ To make the update form work with ajax is the same process that we already did w
 ```html
 <li id="<%= task.id %>">
 ```
+
+Use embedded ruby to grab the id of the instance variable in your update action where you're finding the corresponding task and use the remove jquery function to delete the item. Then depending on the status of the instance variable in your update action you will prepend to the corresponding sections in your html.
+
+```javascript
+$("#<%= @task.id %>").remove();
+
+<% if @task.completed %>
+		$("#completed").prepend( $("<%= j render 'task', task: @task %>").hide().fadeIn(1100) );
+<% else %>
+		$("#todo").prepend( $("<%= j render 'task', task: @task %>").hide().fadeIn(1100) );
+<% end %>
+```
