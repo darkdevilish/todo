@@ -4,6 +4,17 @@ This simple todo list app is made to demonstrate how to use the ruby on rails bu
 
 Once you unzip the repo and create a new rails app, go to the resources folder where you will find the css folder. From there copy the reset.css file to your stylesheets folder located in the app/assets folder of your new rails app.
 
+## Steps
+
+1. [UI](#ui)
+2. [New Task Form Without Ajax](#new-task-form-without-ajax)
+3. [List All Tasks](#list-all-tasks)
+4. [Update Form Without Ajax](#update-form-without-ajax)
+5. [Destroy Form Without Ajax](#destroy-form-without-ajax)
+6. [New Form With Ajax](#new-form-with-ajax)
+7. [Update Form With Ajax](#update-form-with-ajax)
+8. [Destroy Form with Ajax](#destroy-form-with-ajax)
+
 ### UI
 
 Go to the command line and generate a tasks controller with an index action.
@@ -212,4 +223,14 @@ $("#<%= @task.id %>").remove();
 <% else %>
 		$("#todo").prepend( $("<%= j render 'task', task: @task %>").hide().fadeIn(1100) );
 <% end %>
+```
+
+### Destroy Form With Ajax
+
+Everything is the same except that this time in the js.erb file we are only finding the id of the item with jquery and removing it.
+
+```javascript
+$("#<%= @task.id %>").fadeOut(1000, function() {
+	$(this).remove();
+});
 ```
